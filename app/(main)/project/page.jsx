@@ -1,11 +1,27 @@
 "use client";
 
-import { useState } from "react";
-import Chapters from "../../../components/Chapters";
-import Characters from "../../../components/Characters";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Chapters from "@/components/features/Chapters";
+import Characters from "@/components/features/Characters";
 
 export default function ProjectPage() {
   const [activeTab, setActiveTab] = useState("chapters");
+
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+
+    if (!user) {
+      router.push("/login");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div>
@@ -14,14 +30,13 @@ export default function ProjectPage() {
       </h1>
 
       <p style={{ fontSize: "18px", marginBottom: "10px", color: "#4b5563" }}>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, voluptate.
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi,
+        voluptate.
       </p>
-
 
       <div
         style={{
           display: "flex",
-          gap: "0",
           marginBottom: "28px",
           backgroundColor: "#f3ede3",
           border: "1px solid #ddd6c8",
@@ -34,7 +49,8 @@ export default function ProjectPage() {
           onClick={() => setActiveTab("chapters")}
           style={{
             padding: "14px 28px",
-            backgroundColor: activeTab === "chapters" ? "#ffffff" : "transparent",
+            backgroundColor:
+              activeTab === "chapters" ? "#ffffff" : "transparent",
             color: "#1f2937",
             borderRight: "1px solid #ddd6c8",
             fontWeight: "600",
@@ -47,7 +63,8 @@ export default function ProjectPage() {
           onClick={() => setActiveTab("characters")}
           style={{
             padding: "14px 28px",
-            backgroundColor: activeTab === "characters" ? "#ffffff" : "transparent",
+            backgroundColor:
+              activeTab === "characters" ? "#ffffff" : "transparent",
             color: "#1f2937",
             fontWeight: "600",
           }}

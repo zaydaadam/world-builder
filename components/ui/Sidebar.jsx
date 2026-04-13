@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { logout } from "@/lib/auth/logout";
 
 export default function Sidebar() {
   const pathname = usePathname();
+  const router = useRouter();
 
   const isActive = (path) => pathname === path;
 
@@ -17,8 +19,8 @@ export default function Sidebar() {
 
         <nav className="sidebar-nav">
           <Link
-            href="/"
-            className={isActive("/") ? "active-link" : ""}
+            href="/project"
+            className={isActive("/project") ? "active-link" : ""}
           >
             Dashboard
           </Link>
@@ -50,7 +52,9 @@ export default function Sidebar() {
         <button type="button">+ New Project</button>
         <button type="button">Export</button>
         <button type="button">Settings</button>
-        <button type="button">Logout</button>
+        <button type="button" onClick={() => logout(router)}>
+          Logout
+        </button>
       </div>
     </aside>
   );
