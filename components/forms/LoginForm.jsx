@@ -6,7 +6,8 @@ import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const router = useRouter();
-
+  
+  // store user input
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,6 +15,7 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
+      // send login request to backend
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -27,11 +29,13 @@ export default function LoginForm() {
 
       const data = await res.json();
 
+      // if login fails, show error
       if (!res.ok) {
         alert(data.error || data.message || "Login failed");
         return;
       }
-
+      
+      // save user info in localStorage
       localStorage.setItem("user", JSON.stringify(data.user));
 
       router.push("/project");

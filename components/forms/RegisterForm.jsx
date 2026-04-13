@@ -7,13 +7,17 @@ import { useRouter } from "next/navigation";
 export default function RegisterForm() {
   const router = useRouter();
 
+  // store user input
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  // store validation errors and server messages
   const [errors, setErrors] = useState({});
   const [serverMessage, setServerMessage] = useState("");
 
+  // regex to validate email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const trimmedUsername = username.trim();
@@ -30,6 +34,7 @@ export default function RegisterForm() {
 
     const newErrors = {};
 
+    // validate inputs
     if (!trimmedUsername) newErrors.username = "Username required";
     if (!emailValid) newErrors.email = "Valid email required";
     if (!password) newErrors.password = "Password required";
@@ -37,12 +42,14 @@ export default function RegisterForm() {
       newErrors.confirmPassword = "Passwords do not match";
     }
 
+    // stop if validation fails
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
 
     try {
+      // send register request to backend
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -58,11 +65,13 @@ export default function RegisterForm() {
 
       const data = await res.json();
 
+      // show server error if failed
       if (!res.ok) {
         setServerMessage(data.error || "Sign up failed");
         return;
       }
 
+      // redirect to login after successful signup
       router.push("/login");
     } catch (error) {
       console.log("Sign up error:", error);

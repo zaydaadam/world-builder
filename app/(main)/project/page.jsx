@@ -6,9 +6,11 @@ import Chapters from "@/components/features/Chapters";
 import Characters from "@/components/features/Characters";
 
 export default function ProjectPage() {
+  // track which tab is active
   const [activeTab, setActiveTab] = useState("chapters");
 
   const router = useRouter();
+  // loading state to prevent page showing before auth check
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,7 +22,7 @@ export default function ProjectPage() {
       setLoading(false);
     }
   }, []);
-
+  // show loading while checking auth
   if (loading) return <p>Loading...</p>;
 
   return (
@@ -72,7 +74,7 @@ export default function ProjectPage() {
           Characters
         </button>
       </div>
-
+      {/* render content based on selected tab */}
       {activeTab === "chapters" && <Chapters />}
       {activeTab === "characters" && <Characters />}
     </div>

@@ -4,6 +4,7 @@ import pool from "@/lib/db/connection";
 
 export async function POST(request) {
   try {
+    // get data from frontend
     const body = await request.json();
 
     const email = body.email?.trim().toLowerCase();
@@ -15,12 +16,12 @@ export async function POST(request) {
         { status: 400 },
       );
     }
-
+    // find user
     const [users] = await pool.query(
       "SELECT user_id, username, email, password_hash, role FROM users WHERE email = ?",
       [email],
     );
-
+    // if no user
     if (users.length === 0) {
       return NextResponse.json(
         { error: "Invalid email or password." },
@@ -52,6 +53,7 @@ export async function POST(request) {
       { status: 200 },
     );
   } catch (error) {
+    // catch any server errors
     console.error("Login error:", error);
     return NextResponse.json(
       { error: "Internal server error." },
