@@ -2,47 +2,45 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import pool from "@/lib/db/connection";
 
-export async function POST(request) {
+export async function POST(req) {
   try {
-    // get data from frontend
-    const body = await request.json();
+    const { email, password } = await req.json();
 
-    const email = body.email?.trim().toLowerCase();
-    const password = body.password;
+    const cleanEmail = email?.trim().toLowerCase();
 
-    if (!email || !password) {
+    if (!cleanEmail || !password) {
       return NextResponse.json(
-        { error: "Email and Password are required." },
+        { error: "Missing email or password" },
         { status: 400 },
       );
     }
-    // find user
-    const [users] = await pool.query(
+
+    const [rows] = await pool.query(
       "SELECT user_id, username, email, password_hash, role FROM users WHERE email = ?",
-      [email],
+      [cleanEmail],
     );
-    // if no user
-    if (users.length === 0) {
+
+    const user = rows[0];
+
+    if (!user) {
       return NextResponse.json(
-        { error: "Invalid email or password." },
+        { error: "Invalid email or password" },
         { status: 401 },
       );
     }
 
-    const user = users[0];
+    const isValid = await bcrypt.compare(password, user.password_hash);
 
-    const passwordMatch = await bcrypt.compare(password, user.password_hash);
-
-    if (!passwordMatch) {
+    if (!isValid) {
       return NextResponse.json(
-        { error: "Invalid email or password." },
+        { error: "Invalid email or password" },
         { status: 401 },
       );
     }
 
     return NextResponse.json(
       {
-        message: "Login successful.",
+        message: "Login successful",
         user: {
           user_id: user.user_id,
           username: user.username,
@@ -52,11 +50,11 @@ export async function POST(request) {
       },
       { status: 200 },
     );
-  } catch (error) {
-    // catch any server errors
-    console.error("Login error:", error);
+  } catch (err) {
+    console.error("Login error:", err);
+
     return NextResponse.json(
-      { error: "Internal server error." },
+      { error: "Something went wrong" },
       { status: 500 },
     );
   }

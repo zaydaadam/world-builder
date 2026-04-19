@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
   const router = useRouter();
-  
+
   // store user input
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,16 +31,16 @@ export default function LoginForm() {
 
       // if login fails, show error
       if (!res.ok) {
-        alert(data.error || data.message || "Login failed");
+        alert(data.error || "Login failed");
         return;
       }
-      
+
       // save user info in localStorage
       localStorage.setItem("user", JSON.stringify(data.user));
 
-      router.push("/project");
-    } catch (error) {
-      console.log("Login error:", error);
+      router.push("/dashboard");
+    } catch (err) {
+      console.log("login error:", err);
       alert("Something went wrong");
     }
   }
@@ -75,7 +75,7 @@ export default function LoginForm() {
         </h1>
 
         <p style={{ color: "#6b7280", marginBottom: "24px" }}>
-          Welcome back to World Builder
+          Welcome to World Builder
         </p>
 
         <form onSubmit={handleLogin}>
@@ -85,7 +85,7 @@ export default function LoginForm() {
             </label>
             <input
               type="email"
-              placeholder="Enter your email"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               style={{
@@ -104,7 +104,7 @@ export default function LoginForm() {
             </label>
             <input
               type="password"
-              placeholder="Enter your password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               style={{
@@ -142,7 +142,7 @@ export default function LoginForm() {
 
         <p style={{ textAlign: "center" }}>
           <Link href="/" style={{ color: "#6b7280" }}>
-            Back to Home
+            Back
           </Link>
         </p>
       </div>

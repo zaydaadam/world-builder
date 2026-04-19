@@ -2,64 +2,62 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import pool from "@/lib/db/connection";
 
-export async function POST(request) {
+export async function POST(req) {
   try {
-    // get data from frontend
-    const body = await request.json();
+    const { username, email, password, confirmPassword, role } =
+      await req.json();
 
-    const username = body.username?.trim();
-    const email = body.email?.trim().toLowerCase();
-    const password = body.password;
-    const confirmPassword = body.confirmPassword;
-    const role = body.role;
-    // check if required fields are missing
-    if (!username || !email || !password || !confirmPassword) {
+    const cleanUsername = username?.trim();
+    const cleanEmail = email?.trim().toLowerCase();
+
+    if (!cleanUsername || !cleanEmail || !password || !confirmPassword) {
       return NextResponse.json(
-        { error: "Username, email, and password are required." },
+        { error: "Missing required fields" },
         { status: 400 },
       );
     }
 
     if (password !== confirmPassword) {
       return NextResponse.json(
-        { error: "Passwords do not match." },
+        { error: "Passwords don’t match" },
         { status: 400 },
       );
     }
 
-    const [existingUsers] = await pool.query(
+    const [rows] = await pool.query(
       "SELECT user_id FROM users WHERE email = ?",
-      [email],
+      [cleanEmail],
     );
 
-    if (existingUsers.length > 0) {
+    if (rows.length > 0) {
       return NextResponse.json(
-        { error: "An account with this email already exists." },
+        { error: "Email already in use" },
         { status: 409 },
       );
     }
-    // hash password before saving
-    const passwordHash = await bcrypt.hash(password, 10);
-    // set default role
+
+    const hash = await bcrypt.hash(password, 10);
+
     const userRole = role === "reader" ? "reader" : "writer";
-    // insert new user into database
+
     const [result] = await pool.query(
       `INSERT INTO users (username, email, password_hash, role)
        VALUES (?, ?, ?, ?)`,
-      [username, email, passwordHash, userRole],
+      [cleanUsername, cleanEmail, hash, userRole],
     );
-    // return success response
+
     return NextResponse.json(
       {
-        message: "User registered successfully.",
+        message: "Account created",
         userId: result.insertId,
       },
       { status: 201 },
     );
-  } catch (error) {
-    console.error("Register error:", error);
+  } catch (err) {
+    console.error("Register error:", err);
+
     return NextResponse.json(
-      { error: "Internal server error." },
+      { error: "Something went wrong" },
       { status: 500 },
     );
   }

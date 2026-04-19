@@ -20,11 +20,8 @@ export default function RegisterForm() {
   // regex to validate email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  const trimmedUsername = username.trim();
-  const trimmedEmail = email.trim();
-
-  const usernameValid = trimmedUsername.length >= 3;
-  const emailValid = trimmedEmail.length > 0 && emailRegex.test(trimmedEmail);
+  const cleanUsername = username.trim();
+  const cleanEmail = email.trim().toLowerCase();
 
   async function handleSignUp(e) {
     e.preventDefault();
@@ -32,32 +29,31 @@ export default function RegisterForm() {
     setErrors({});
     setServerMessage("");
 
-    const newErrors = {};
+    const err = {};
 
     // validate inputs
-    if (!trimmedUsername) newErrors.username = "Username required";
-    if (!emailValid) newErrors.email = "Valid email required";
-    if (!password) newErrors.password = "Password required";
-    if (password !== confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match";
-    }
+    if (!cleanUsername) err.username = "Username required";
+    if (!cleanEmail || !emailRegex.test(cleanEmail))
+      err.email = "Enter a valid email";
+    if (!password) err.password = "Password required";
+    if (password !== confirmPassword)
+      err.confirmPassword = "Passwords don’t match";
 
     // stop if validation fails
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    if (Object.keys(err).length) {
+      setErrors(err);
       return;
     }
 
     try {
-      // send register request to backend
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: trimmedUsername,
-          email: trimmedEmail,
+          username: cleanUsername,
+          email: cleanEmail,
           password,
           confirmPassword,
         }),
@@ -73,8 +69,8 @@ export default function RegisterForm() {
 
       // redirect to login after successful signup
       router.push("/login");
-    } catch (error) {
-      console.log("Sign up error:", error);
+    } catch (err) {
+      console.log("signup error:", err);
       setServerMessage("Something went wrong");
     }
   }
@@ -99,17 +95,13 @@ export default function RegisterForm() {
         }}
       >
         <h1
-          style={{
-            fontSize: "28px",
-            fontWeight: "700",
-            marginBottom: "6px",
-          }}
+          style={{ fontSize: "28px", fontWeight: "700", marginBottom: "6px" }}
         >
           Sign Up
         </h1>
 
         <p style={{ color: "#6b7280", marginBottom: "24px" }}>
-          Create your World Builder account
+          Create your account
         </p>
 
         {serverMessage && (
@@ -120,12 +112,10 @@ export default function RegisterForm() {
 
         <form onSubmit={handleSignUp}>
           <div style={{ marginBottom: "16px" }}>
-            <label style={{ display: "block", marginBottom: "6px" }}>
-              Username
-            </label>
+            <label>Username</label>
             <input
               type="text"
-              placeholder="Enter your username"
+              placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               style={{
@@ -136,19 +126,15 @@ export default function RegisterForm() {
               }}
             />
             {errors.username && (
-              <p style={{ color: "#b91c1c", marginTop: "6px" }}>
-                {errors.username}
-              </p>
+              <p style={{ color: "#b91c1c" }}>{errors.username}</p>
             )}
           </div>
 
           <div style={{ marginBottom: "16px" }}>
-            <label style={{ display: "block", marginBottom: "6px" }}>
-              Email
-            </label>
+            <label>Email</label>
             <input
               type="email"
-              placeholder="Enter your email"
+              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               style={{
@@ -158,20 +144,14 @@ export default function RegisterForm() {
                 border: "1px solid #d1d5db",
               }}
             />
-            {errors.email && (
-              <p style={{ color: "#b91c1c", marginTop: "6px" }}>
-                {errors.email}
-              </p>
-            )}
+            {errors.email && <p style={{ color: "#b91c1c" }}>{errors.email}</p>}
           </div>
 
           <div style={{ marginBottom: "16px" }}>
-            <label style={{ display: "block", marginBottom: "6px" }}>
-              Password
-            </label>
+            <label>Password</label>
             <input
               type="password"
-              placeholder="Create a password"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               style={{
@@ -182,19 +162,15 @@ export default function RegisterForm() {
               }}
             />
             {errors.password && (
-              <p style={{ color: "#b91c1c", marginTop: "6px" }}>
-                {errors.password}
-              </p>
+              <p style={{ color: "#b91c1c" }}>{errors.password}</p>
             )}
           </div>
 
           <div style={{ marginBottom: "20px" }}>
-            <label style={{ display: "block", marginBottom: "6px" }}>
-              Confirm Password
-            </label>
+            <label>Confirm Password</label>
             <input
               type="password"
-              placeholder="Confirm your password"
+              placeholder="Confirm password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               style={{
@@ -205,9 +181,7 @@ export default function RegisterForm() {
               }}
             />
             {errors.confirmPassword && (
-              <p style={{ color: "#b91c1c", marginTop: "6px" }}>
-                {errors.confirmPassword}
-              </p>
+              <p style={{ color: "#b91c1c" }}>{errors.confirmPassword}</p>
             )}
           </div>
 
@@ -236,7 +210,7 @@ export default function RegisterForm() {
 
         <p style={{ textAlign: "center" }}>
           <Link href="/" style={{ color: "#6b7280" }}>
-            Back to Home
+            Back
           </Link>
         </p>
       </div>
