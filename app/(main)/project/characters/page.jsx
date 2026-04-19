@@ -2,16 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Characters from "@/components/features/Characters";
 
-export default function ProjectPage() {
+export default function CharactersPage() {
   const router = useRouter();
 
   const [project, setProject] = useState(null);
-
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-  });
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
@@ -27,45 +23,11 @@ export default function ProjectPage() {
       return;
     }
 
-    const parsedProject = JSON.parse(savedProject);
-
-    setProject(parsedProject);
-    setForm({
-      title: parsedProject.title || "",
-      description: parsedProject.description || "",
-    });
+    setProject(JSON.parse(savedProject));
   }, [router]);
 
   function goTo(path) {
     router.push(path);
-  }
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-
-    setForm(function (prev) {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
-  }
-
-  function saveProject(e) {
-    e.preventDefault();
-
-    if (!project || !form.title.trim()) return;
-
-    const updatedProject = {
-      ...project,
-      title: form.title,
-      description: form.description,
-    };
-
-    setProject(updatedProject);
-    localStorage.setItem("currentProject", JSON.stringify(updatedProject));
-
-    alert("Project updated");
   }
 
   if (!project) return <p>Loading...</p>;
@@ -95,7 +57,7 @@ export default function ProjectPage() {
           onClick={() => goTo("/project")}
           style={{
             padding: "14px 28px",
-            backgroundColor: "#ffffff",
+            backgroundColor: "transparent",
             color: "#1f2937",
             borderRight: "1px solid #ddd6c8",
             fontWeight: "600",
@@ -125,7 +87,7 @@ export default function ProjectPage() {
           onClick={() => goTo("/project/characters")}
           style={{
             padding: "14px 28px",
-            backgroundColor: "transparent",
+            backgroundColor: "#ffffff",
             color: "#1f2937",
             borderRight: "1px solid #ddd6c8",
             fontWeight: "600",
@@ -151,56 +113,7 @@ export default function ProjectPage() {
         </button>
       </div>
 
-      <div>
-        <h2
-          style={{
-            fontSize: "28px",
-            marginBottom: "16px",
-            fontWeight: "700",
-          }}
-        >
-          Edit Project
-        </h2>
-
-        <form onSubmit={saveProject}>
-          <div style={{ marginBottom: "12px" }}>
-            <label>Project Name</label>
-            <br />
-            <input
-              type="text"
-              name="title"
-              value={form.title}
-              onChange={handleChange}
-              style={{ width: "300px", padding: "8px" }}
-            />
-          </div>
-
-          <div style={{ marginBottom: "12px" }}>
-            <label>Description</label>
-            <br />
-            <textarea
-              name="description"
-              value={form.description}
-              onChange={handleChange}
-              style={{ width: "300px", height: "100px", padding: "8px" }}
-            />
-          </div>
-
-          <button
-            type="submit"
-            style={{
-              padding: "10px 18px",
-              backgroundColor: "#2c558a",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-            }}
-          >
-            Save Changes
-          </button>
-        </form>
-      </div>
+      <Characters />
     </div>
   );
 }

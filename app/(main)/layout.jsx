@@ -1,7 +1,7 @@
 import Sidebar from "@/components/ui/Sidebar";
 import Topbar from "@/components/ui/Topbar";
 
-export default function MainLayout({ children }) {
+export default function Layout({ children }) {
   return (
     <div className="app-layout">
       <Sidebar />
