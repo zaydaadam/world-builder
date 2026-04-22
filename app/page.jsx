@@ -143,7 +143,7 @@ export default function Home() {
           <h1
             style={{
               fontSize: "48px",
-              fontWeight: "700",
+              fontWeight: "900",
               marginBottom: "18px",
               color: "#ffffff",
               lineHeight: "1.1",

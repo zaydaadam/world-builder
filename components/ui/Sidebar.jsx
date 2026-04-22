@@ -46,13 +46,13 @@ export default function Sidebar() {
             src="/images/logo_wb.png"
             alt="logo"
             style={{
-              height: "40px",
+              height: "45px",
               borderRadius: "8px",
               backgroundColor: "rgba(255,255,255,0.95)",
               padding: "4px 6px",
             }}
           />
-          <h1
+          {/* <h1
             style={{
               fontSize: "18px",
               margin: 0,
@@ -60,7 +60,7 @@ export default function Sidebar() {
             }}
           >
             World Builder
-          </h1>
+          </h1> */}
         </div>
 
         {/* Nav */}
