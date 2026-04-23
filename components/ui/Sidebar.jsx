@@ -23,8 +23,8 @@ export default function Sidebar() {
 
         // Background image
         backgroundImage:
-          // "linear-gradient(rgba(12,18,31,0.85), rgba(12,18,31,0.92)), url('/images/sidebar_bg.png')",
-           "linear-gradient(rgba(12,18,31,0.60), rgba(12,18,31,0.92)), url('/images/sidebar_bg.png')",
+          "linear-gradient(rgba(12,18,31,0.85), rgba(12,18,31,0.92)), url('/images/sidebar_bg.png')",
+          //  "linear-gradient(rgba(12,18,31,0.60), rgba(12,18,31,0.92)), url('/images/sidebar_bg.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
 
@@ -46,10 +46,10 @@ export default function Sidebar() {
             src="/images/logo_wb.png"
             alt="logo"
             style={{
-              height: "45px",
-              borderRadius: "8px",
-              backgroundColor: "rgba(255,255,255,0.95)",
-              padding: "4px 6px",
+              height: "50px",
+              borderRadius: "10px",
+              backgroundColor: "rgba(255,255,255,1)",
+              padding: "4px 8px",
             }}
           />
           {/* <h1

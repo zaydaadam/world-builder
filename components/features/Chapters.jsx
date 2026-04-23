@@ -71,8 +71,8 @@ export default function Characters() {
         <div
           style={{
             position: "relative",
-            width: "120px",
-            height: "120px",
+            width: "150px",
+            height: "150px",
             border: "2px dashed #d1d5db",
             borderRadius: "8px",
             display: "flex",

@@ -62,3 +62,18 @@ CREATE TABLE landmarks (
     FOREIGN KEY (map_id) REFERENCES maps(map_id) ON DELETE CASCADE
 );
 
+ALTER TABLE maps
+ADD COLUMN file_type VARCHAR(10) NOT NULL DEFAULT 'png';
+
+ALTER TABLE maps
+ADD CONSTRAINT uq_maps_project UNIQUE (project_id);
+
+CREATE TABLE charcater_images (
+    character_image_id INT AUTO_INCREMENT PRIMARY KEY,
+    character_id INT NOT NULL,
+    image_path VARCHAR(255) NOT NULL,
+    file_type VARCHAR(20) NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (character_id) REFERENCES characters(character_id) ON DELETE CASCADE 
+);
+

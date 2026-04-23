@@ -50,9 +50,9 @@ export default function Home() {
               src="/images/logo_wb.png"
               alt="World Builder Logo"
               style={{
-                height: "45px",
+                height: "50px",
                 borderRadius: "10px",
-                backgroundColor: "rgba(255,255,255,0.95)",
+                backgroundColor: "rgba(255,255,255,1)",
                 padding: "4px 8px",
               }}
             />
