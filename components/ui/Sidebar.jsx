@@ -64,7 +64,7 @@ export default function Sidebar() {
       <div className="sidebar-bottom">
         {isProjectPage && <button type="button">+ New Project</button>}
 
-        <button type="button">Export</button>
+        <button type="button" onClick={() => print()}>Export</button>
         <button type="button">Settings</button>
         <button type="button" onClick={() => logout(router)}>
           Logout

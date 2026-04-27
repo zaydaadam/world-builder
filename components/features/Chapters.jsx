@@ -5,12 +5,13 @@ export default function Chapters() {
         <h2 style={{ fontSize: "32px", marginBottom: "8px", fontWeight: "700" }}>
           Chapters
         </h2>
-        <p style={{ color: "#6b7280" }}>
+        <p className="print-hidden" style={{ color: "#6b7280" }}>
           Organize your story chapters and writing
         </p>
       </div>
 
       <button
+        className="print-hidden"
         style={{
           padding: "12px 18px",
           backgroundColor: "#2c558a",
@@ -44,6 +45,7 @@ export default function Chapters() {
 
         <div style={{ display: "flex", gap: "12px" }}>
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#f3f4f6",
@@ -54,6 +56,7 @@ export default function Chapters() {
           </button>
 
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#fde8e8",
@@ -87,6 +90,7 @@ export default function Chapters() {
 
         <div style={{ display: "flex", gap: "12px" }}>
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#f3f4f6",
@@ -97,6 +101,7 @@ export default function Chapters() {
           </button>
 
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#fde8e8",
@@ -129,6 +134,7 @@ export default function Chapters() {
 
         <div style={{ display: "flex", gap: "12px" }}>
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#f3f4f6",
@@ -139,6 +145,7 @@ export default function Chapters() {
           </button>
 
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#fde8e8",

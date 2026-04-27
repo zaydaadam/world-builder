@@ -5,12 +5,13 @@ export default function Characters() {
         <h2 style={{ fontSize: "32px", marginBottom: "8px", fontWeight: "700" }}>
           Characters
         </h2>
-        <p style={{ color: "#6b7280" }}>
+        <p className="print-hidden" style={{ color: "#6b7280" }}>
           Keep track of your story characters
         </p>
       </div>
 
       <button
+        className="print-hidden"
         style={{
           padding: "12px 18px",
           backgroundColor: "#2c558a",
@@ -42,6 +43,7 @@ export default function Characters() {
 
         <div style={{ display: "flex", gap: "12px" }}>
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#f3f4f6",
@@ -52,6 +54,7 @@ export default function Characters() {
           </button>
 
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#fde8e8",
@@ -83,6 +86,7 @@ export default function Characters() {
 
         <div style={{ display: "flex", gap: "12px" }}>
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#f3f4f6",
@@ -93,6 +97,7 @@ export default function Characters() {
           </button>
 
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#fde8e8",
@@ -123,6 +128,7 @@ export default function Characters() {
 
         <div style={{ display: "flex", gap: "12px" }}>
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#f3f4f6",
@@ -133,6 +139,7 @@ export default function Characters() {
           </button>
 
           <button
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#fde8e8",

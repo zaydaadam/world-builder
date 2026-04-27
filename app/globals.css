@@ -121,3 +121,17 @@ button {
 .active-link {
   background-color: rgba(255, 255, 255, 0.2);
 }
+
+@media print{
+  .topbar{
+    display: none;
+  }
+
+  .sidebar{
+    display: none;
+  }
+
+  .print-hidden{
+    display: none;
+  }
+}
