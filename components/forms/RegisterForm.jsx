@@ -7,13 +7,11 @@ import { useRouter } from "next/navigation";
 export default function RegisterForm() {
   const router = useRouter();
 
-  // store user input
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // store validation errors and server messages
   const [errors, setErrors] = useState({});
   const [serverMessage, setServerMessage] = useState("");
 
@@ -66,13 +64,11 @@ export default function RegisterForm() {
 
       const data = await res.json();
 
-      // show server error if failed
       if (!res.ok) {
         setServerMessage(data.error || "Sign up failed");
         return;
       }
 
-      // redirect to login after successful signup
       router.push("/login");
     } catch (err) {
       console.log("signup error:", err);
@@ -215,11 +211,53 @@ export default function RegisterForm() {
           >
             Sign Up
           </h1>
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "120px 24px 48px",
+          backgroundImage:
+            "linear-gradient(rgba(14, 24, 39, 0.72), rgba(14, 24, 39, 0.72)), url('/images/hero_wb.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "430px",
+            background: "rgba(255, 255, 255, 0.92)",
+            padding: "32px",
+            borderRadius: "18px",
+            border: "1px solid rgba(255,255,255,0.4)",
+            boxShadow: "0 18px 40px rgba(0, 0, 0, 0.22)",
+            backdropFilter: "blur(6px)",
+            WebkitBackdropFilter: "blur(6px)",
+            boxSizing: "border-box",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "28px",
+              fontWeight: "700",
+              marginBottom: "6px",
+              color: "#1f2f46",
+            }}
+          >
+            Sign Up
+          </h1>
 
           <p style={{ color: "#6b7280", marginBottom: "24px" }}>
             Create your World Builder account
           </p>
+          <p style={{ color: "#6b7280", marginBottom: "24px" }}>
+            Create your World Builder account
+          </p>
 
+          {serverMessage && (
+            <p style={{ color: "#b91c1c", marginBottom: "16px" }}>
+              {serverMessage}
+            </p>
+          )}
           {serverMessage && (
             <p style={{ color: "#b91c1c", marginBottom: "16px" }}>
               {serverMessage}
@@ -259,6 +297,30 @@ export default function RegisterForm() {
               error={errors.confirmPassword}
             />
 
+            <button
+              type="submit"
+              onMouseEnter={() => setButtonHover(true)}
+              onMouseLeave={() => setButtonHover(false)}
+              style={{
+                width: "100%",
+                padding: "12px",
+                backgroundColor: buttonHover ? "#355d96" : "#2c558a",
+                color: "white",
+                borderRadius: "12px",
+                fontWeight: "600",
+                marginBottom: "16px",
+                border: "none",
+                cursor: "pointer",
+                transition: "all 0.25s ease",
+                boxShadow: buttonHover
+                  ? "0 8px 18px rgba(0, 0, 0, 0.18)"
+                  : "0 4px 10px rgba(0, 0, 0, 0.10)",
+                transform: buttonHover ? "translateY(-2px)" : "translateY(0)",
+              }}
+            >
+              Sign Up
+            </button>
+          </form>
             <button
               type="submit"
               onMouseEnter={() => setButtonHover(true)}

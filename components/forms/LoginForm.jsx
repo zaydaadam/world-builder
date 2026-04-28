@@ -20,7 +20,6 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
-      // send login request to backend
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -34,7 +33,6 @@ export default function LoginForm() {
 
       const data = await res.json();
 
-      // if login fails, show error
       if (!res.ok) {
         alert(data.error || "Login failed");
         return;
@@ -201,7 +199,44 @@ export default function LoginForm() {
           >
             Log In
           </h1>
+          flex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "120px 24px 48px",
+          backgroundImage:
+            "linear-gradient(rgba(14, 24, 39, 0.72), rgba(14, 24, 39, 0.72)), url('/images/hero_wb.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div
+          style={{
+            width: "400px",
+            background: "rgba(255, 255, 255, 0.92)",
+            padding: "32px",
+            borderRadius: "18px",
+            border: "1px solid rgba(255,255,255,0.4)",
+            boxShadow: "0 18px 40px rgba(0, 0, 0, 0.22)",
+            backdropFilter: "blur(6px)",
+            WebkitBackdropFilter: "blur(6px)",
+            boxSizing: "border-box",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "28px",
+              fontWeight: "700",
+              marginBottom: "6px",
+              color: "#1f2f46",
+            }}
+          >
+            Log In
+          </h1>
 
+          <p style={{ color: "#6b7280", marginBottom: "24px" }}>
+            Welcome back to World Builder
+          </p>
           <p style={{ color: "#6b7280", marginBottom: "24px" }}>
             Welcome back to World Builder
           </p>
@@ -267,6 +302,30 @@ export default function LoginForm() {
               />
             </div>
 
+            <button
+              type="submit"
+              onMouseEnter={() => setButtonHover(true)}
+              onMouseLeave={() => setButtonHover(false)}
+              style={{
+                width: "100%",
+                padding: "12px",
+                backgroundColor: buttonHover ? "#355d96" : "#2c558a",
+                color: "white",
+                borderRadius: "12px",
+                fontWeight: "600",
+                marginBottom: "16px",
+                border: "none",
+                cursor: "pointer",
+                transition: "all 0.25s ease",
+                boxShadow: buttonHover
+                  ? "0 8px 18px rgba(0, 0, 0, 0.18)"
+                  : "0 4px 10px rgba(0, 0, 0, 0.10)",
+                transform: buttonHover ? "translateY(-2px)" : "translateY(0)",
+              }}
+            >
+              Log In
+            </button>
+          </form>
             <button
               type="submit"
               onMouseEnter={() => setButtonHover(true)}

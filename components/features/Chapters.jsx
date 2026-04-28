@@ -173,7 +173,7 @@ export default function Chapters() {
         </h2>
 
         <p style={{ color: "#6b7280" }}>
-          Organize your story chapters and writing
+          Keep track of your story characters
         </p>
       </div>
 
@@ -318,3 +318,4 @@ export default function Chapters() {
     </div>
   );
 }
+
