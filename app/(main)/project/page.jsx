@@ -139,67 +139,41 @@ export default function ProjectPage() {
           width: "fit-content",
         }}
       >
-        <button
-          onClick={() => goTo("/project")}
-          style={{
-            padding: "14px 28px",
-            backgroundColor: "#ffffff",
-            color: "#1f2937",
-            borderRight: "1px solid #ddd6c8",
-            fontWeight: "600",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
+        <button onClick={() => goTo("/project")} style={tabStyle(true)}>
           Current Project
         </button>
 
         <button
           onClick={() => goTo("/project/chapters")}
-          style={{
-            padding: "14px 28px",
-            backgroundColor: "transparent",
-            color: "#1f2937",
-            borderRight: "1px solid #ddd6c8",
-            fontWeight: "600",
-            border: "none",
-            cursor: "pointer",
-          }}
+          style={tabStyle(false)}
         >
           Chapters
         </button>
 
         <button
           onClick={() => goTo("/project/characters")}
-          style={{
-            padding: "14px 28px",
-            backgroundColor: "transparent",
-            color: "#1f2937",
-            borderRight: "1px solid #ddd6c8",
-            fontWeight: "600",
-            border: "none",
-            cursor: "pointer",
-          }}
+          style={tabStyle(false)}
         >
           Characters
         </button>
 
         <button
           onClick={() => goTo("/project/map")}
-          style={{
-            padding: "14px 28px",
-            backgroundColor: "transparent",
-            color: "#1f2937",
-            fontWeight: "600",
-            border: "none",
-            cursor: "pointer",
-          }}
+          style={tabStyle(false, true)}
         >
           Map
         </button>
       </div>
 
-      <div>
+      <div
+        style={{
+          background: "white",
+          padding: "24px",
+          borderRadius: "14px",
+          border: "1px solid #e5e7eb",
+          maxWidth: "500px",
+        }}
+      >
         <h2
           style={{
             fontSize: "28px",
@@ -211,32 +185,71 @@ export default function ProjectPage() {
         </h2>
 
         <form onSubmit={saveProject}>
-          <div style={{ marginBottom: "12px" }}>
-            <label>Project Name</label>
-            <br />
+          <div style={{ marginBottom: "16px" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "6px",
+                fontWeight: "500",
+              }}
+            >
+              Project Name
+            </label>
+
             <input
               type="text"
               name="title"
               value={form.title}
               onChange={handleChange}
-              style={{ width: "300px", padding: "8px" }}
+              placeholder="Enter project name"
+              style={{
+                width: "100%",
+                padding: "10px",
+                borderRadius: "8px",
+                border: "1px solid #d1d5db",
+                boxSizing: "border-box",
+              }}
             />
           </div>
 
-          <div style={{ marginBottom: "12px" }}>
-            <label>Description</label>
-            <br />
+          <div style={{ marginBottom: "16px" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "6px",
+                fontWeight: "500",
+              }}
+            >
+              Description
+            </label>
+
             <textarea
               name="description"
               value={form.description}
               onChange={handleChange}
-              style={{ width: "300px", height: "100px", padding: "8px" }}
+              placeholder="Write your project description..."
+              style={{
+                width: "100%",
+                height: "100px",
+                padding: "10px",
+                borderRadius: "8px",
+                border: "1px solid #d1d5db",
+                boxSizing: "border-box",
+              }}
             />
           </div>
 
-          <div style={{ marginBottom: "12px" }}>
-            <label>Image</label>
-            <br />
+          <div style={{ marginBottom: "16px" }}>
+            <label
+              style={{
+                display: "block",
+                marginBottom: "6px",
+                fontWeight: "500",
+              }}
+            >
+              Image
+            </label>
+
             <ImageUpload onUpload={handleImageUpload} />
 
             {/* preview image */}
@@ -245,7 +258,7 @@ export default function ProjectPage() {
                 src={form.image_path}
                 alt="Preview"
                 style={{
-                  maxWidth: "300px",
+                  maxWidth: "100%",
                   display: "block",
                   marginTop: "10px",
                   borderRadius: "8px",
@@ -257,11 +270,13 @@ export default function ProjectPage() {
           <button
             type="submit"
             style={{
-              padding: "10px 18px",
+              width: "100%",
+              padding: "12px",
               backgroundColor: "#2c558a",
               color: "white",
               border: "none",
-              borderRadius: "8px",
+              borderRadius: "10px",
+              fontWeight: "600",
               cursor: "pointer",
             }}
           >
@@ -271,4 +286,16 @@ export default function ProjectPage() {
       </div>
     </div>
   );
+}
+
+function tabStyle(active, last) {
+  return {
+    padding: "14px 28px",
+    backgroundColor: active ? "#ffffff" : "transparent",
+    color: "#1f2937",
+    border: "none",
+    borderRight: last ? "none" : "1px solid #ddd6c8",
+    fontWeight: "600",
+    cursor: "pointer",
+  };
 }
