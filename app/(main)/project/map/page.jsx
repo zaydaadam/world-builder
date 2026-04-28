@@ -2,12 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Map from "@/components/features/Map";
 
 export default function MapPage() {
   const router = useRouter();
 
+  // holds current project
   const [project, setProject] = useState(null);
 
+  // loads user and project when page opens
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     const savedProject = localStorage.getItem("currentProject");
@@ -25,6 +28,7 @@ export default function MapPage() {
     setProject(JSON.parse(savedProject));
   }, [router]);
 
+  // changes project tabs
   function goTo(path) {
     router.push(path);
   }
@@ -41,6 +45,7 @@ export default function MapPage() {
         {project.description}
       </p>
 
+      {/* project tabs */}
       <div
         style={{
           display: "flex",
@@ -123,7 +128,7 @@ export default function MapPage() {
           Map
         </h2>
 
-        <p>Map section</p>
+        <Map />
       </div>
     </div>
   );

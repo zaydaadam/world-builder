@@ -16,6 +16,7 @@ CREATE TABLE projects (
     title VARCHAR(150) NOT NULL,
     description TEXT,
     genre VARCHAR(50),
+    image_path LONGTEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
@@ -38,6 +39,7 @@ CREATE TABLE characters (
     name VARCHAR(100) NOT NULL,
     description TEXT,
     role VARCHAR(50),
+    image_path LONGTEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE
 );
@@ -45,8 +47,8 @@ CREATE TABLE characters (
 CREATE TABLE maps (
     map_id INT AUTO_INCREMENT PRIMARY KEY,
     project_id INT NOT NULL, 
-    map_name VARCHAR(100) NOT NULL,
-    image_path VARCHAR(255) NOT NULL,
+    map_name VARCHAR(100) NOT NULL DEFAULT 'Main Map',
+    image_path LONGTEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE 
 );

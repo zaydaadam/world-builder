@@ -1,78 +1,160 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import ImageUpload from "@/components/ui/ImageUpload";
 
 export default function DashboardPage() {
   const router = useRouter();
 
-  // project list
-  const [projects, setProjects] = useState([
-    {
-      project_id: 1,
-      title: "The Dragon’s Heir",
-      description: "Fantasy world with kingdoms and war.",
-    },
-    {
-      project_id: 2,
-      title: "Second Project",
-      description: "Another story idea.",
-    },
-  ]);
+  // state for projects list
+  const [projects, setProjects] = useState([]);
 
-  // show/hide form
+  // controls showing the create form
   const [showForm, setShowForm] = useState(false);
 
   // form inputs
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  function handleCreateProject(e) {
-    e.preventDefault();
+  // stores uploaded image path
+  const [imagePath, setImagePath] = useState("");
 
-    if (!title.trim()) return;
+  // runs once when page loads
+  useEffect(function () {
+    getProjects();
+  }, []);
 
-    const newProject = {
-      project_id: Date.now(),
-      title: title,
-      description: description,
-    };
+  // gets user from localStorage
+  function getSavedUser() {
+    const savedUser = localStorage.getItem("user");
 
-    setProjects(function (prev) {
-      return [...prev, newProject];
-    });
+    // if no user, send to login
+    if (!savedUser) {
+      router.push("/login");
+      return null;
+    }
 
-    setTitle("");
-    setDescription("");
-    setShowForm(false);
+    return JSON.parse(savedUser);
   }
 
-  function handleOpenProject(project) {
-    // save selected project
-    localStorage.setItem("currentProject", JSON.stringify(project));
+  // fetch all projects for this user
+  async function getProjects() {
+    try {
+      const user = getSavedUser();
+      if (!user) return;
 
-    // default tab when project first opens
+      const res = await fetch(`/api/projects?userId=${user.user_id}`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message);
+        return;
+      }
+
+      // save projects to state
+      setProjects(data);
+    } catch (error) {
+      console.log("Get projects error:", error);
+      alert("Something went wrong");
+    }
+  }
+
+  // handles creating a new project
+  async function handleCreateProject(e) {
+    e.preventDefault();
+
+    const user = getSavedUser();
+    if (!user) return;
+
+    // simple check so empty title isn't allowed
+    if (!title.trim()) return;
+
+    try {
+      const res = await fetch("/api/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user.user_id,
+          title: title,
+          description: description,
+          image_path: imagePath || null,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message);
+        return;
+      }
+
+      // add new project to top of list
+      setProjects(function (prev) {
+        return [data, ...prev];
+      });
+
+      // reset form
+      setTitle("");
+      setDescription("");
+      setImagePath("");
+      setShowForm(false);
+    } catch (error) {
+      console.log("Create project error:", error);
+      alert("Something went wrong");
+    }
+  }
+
+  // saves project in localStorage and opens it
+  function handleOpenProject(project) {
+    localStorage.setItem("currentProject", JSON.stringify(project));
     localStorage.setItem("activeProjectTab", "chapters");
 
-    // go to project page
     router.push("/project");
   }
 
-  function handleDeleteProject(projectId) {
+  // deletes a project
+  async function handleDeleteProject(projectId) {
     const confirmed = window.confirm("Delete this project?");
     if (!confirmed) return;
 
-    setProjects(function (prev) {
-      return prev.filter(function (project) {
-        return project.project_id !== projectId;
+    const user = getSavedUser();
+    if (!user) return;
+
+    try {
+      const res = await fetch(
+        `/api/projects/${projectId}?userId=${user.user_id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message);
+        return;
+      }
+
+      // remove project from state
+      setProjects(function (prev) {
+        return prev.filter(function (project) {
+          return project.project_id !== projectId;
+        });
       });
-    });
+    } catch (error) {
+      console.log("Delete project error:", error);
+      alert("Something went wrong");
+    }
   }
 
   return (
     <div>
       <h1 style={{ fontSize: "28px", marginBottom: "20px" }}>Your Projects</h1>
 
+      {/* show button when form is hidden */}
       {!showForm && (
         <button
           onClick={() => setShowForm(true)}
@@ -88,6 +170,7 @@ export default function DashboardPage() {
         </button>
       )}
 
+      {/* create project form */}
       {showForm && (
         <form onSubmit={handleCreateProject} style={{ marginBottom: "20px" }}>
           <div>
@@ -106,16 +189,23 @@ export default function DashboardPage() {
             />
           </div>
 
+          {/* image upload component */}
+          <div style={{ marginTop: "10px" }}>
+            <ImageUpload onUpload={setImagePath} />
+          </div>
+
           <button type="submit" style={{ marginTop: "10px" }}>
             Save
           </button>
 
+          {/* cancel form */}
           <button
             type="button"
             onClick={() => {
               setShowForm(false);
               setTitle("");
               setDescription("");
+              setImagePath("");
             }}
             style={{ marginLeft: "10px" }}
           >
@@ -124,6 +214,7 @@ export default function DashboardPage() {
         </form>
       )}
 
+      {/* if no projects */}
       {projects.length === 0 ? (
         <p>No projects yet.</p>
       ) : (
@@ -140,6 +231,19 @@ export default function DashboardPage() {
             >
               <h3>{project.title}</h3>
               <p>{project.description}</p>
+
+              {/* show image if exists */}
+              {project.image_path && (
+                <img
+                  src={project.image_path}
+                  alt="Project"
+                  style={{
+                    maxWidth: "300px",
+                    display: "block",
+                    marginBottom: "20px",
+                  }}
+                />
+              )}
 
               <button type="button" onClick={() => handleOpenProject(project)}>
                 Open

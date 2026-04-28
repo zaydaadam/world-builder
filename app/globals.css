@@ -121,3 +121,32 @@ button {
 .active-link {
   background-color: rgba(255, 255, 255, 0.2);
 }
+
+.text-editor {
+  margin-bottom: 14px;
+}
+
+.text-editor .ql-toolbar {
+  border: 1px solid #d1d5db;
+  border-radius: 8px 8px 0 0;
+  padding: 8px;
+}
+
+.text-editor .ql-container {
+  border: 1px solid #d1d5db;
+  border-radius: 0 0 8px 8px;
+  min-height: 180px;
+}
+
+.text-editor .ql-editor {
+  min-height: 180px;
+  font-size: 14px;
+}
+
+.text-editor .ql-picker.ql-size {
+  width: 80px;
+}
+
+.text-editor .ql-picker.ql-header {
+  width: 90px;
+}
