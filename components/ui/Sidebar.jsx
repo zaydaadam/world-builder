@@ -126,7 +126,11 @@ export default function Sidebar() {
           </button>
         )} */}
 
-        <button type="button" style={buttonStyle()}>
+        <button
+          type="button"
+          onClick={() => window.print()}
+          style={buttonStyle()}
+        >
           Export
         </button>
         {/* <button type="button" style={buttonStyle()}>

@@ -284,7 +284,11 @@ export default function Chapters() {
               </h3>
 
               <p style={{ color: "#6b7280", marginBottom: "14px" }}>
-                Chapter saved. Click Edit to view or change it.
+                {chapter.content
+                  ?.replace(/<[^>]+>/g, "") // remove HTML tags
+                  .replace(/&nbsp;/g, " ") // fix spaces
+                  .slice(0, 120)}
+                ...
               </p>
               <div style={{ display: "flex", gap: "12px" }}>
                 <button
@@ -301,7 +305,7 @@ export default function Chapters() {
                 </button>
 
                 <button
-            className="print-hidden"
+                  className="print-hidden"
                   onClick={() => handleDeleteChapter(chapter.chapter_id)}
                   style={{
                     padding: "10px 16px",
