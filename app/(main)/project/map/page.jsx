@@ -58,6 +58,7 @@ export default function MapPage() {
         }}
       >
         <button
+          className="print-hidden"
           onClick={() => goTo("/project")}
           style={{
             padding: "14px 28px",
@@ -73,6 +74,7 @@ export default function MapPage() {
         </button>
 
         <button
+          className="print-hidden"
           onClick={() => goTo("/project/chapters")}
           style={{
             padding: "14px 28px",
@@ -88,6 +90,7 @@ export default function MapPage() {
         </button>
 
         <button
+          className="print-hidden"
           onClick={() => goTo("/project/characters")}
           style={{
             padding: "14px 28px",
@@ -103,6 +106,7 @@ export default function MapPage() {
         </button>
 
         <button
+          className="print-hidden"
           onClick={() => goTo("/project/map")}
           style={{
             padding: "14px 28px",

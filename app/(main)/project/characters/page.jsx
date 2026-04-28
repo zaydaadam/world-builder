@@ -64,22 +64,26 @@ export default function CharactersPage() {
         <Tab
           text="Current Project"
           active={false}
+          className="print-hidden"
           onClick={() => goTo("/project")}
         />
         <Tab
           text="Chapters"
           active={false}
+          className="print-hidden"
           onClick={() => goTo("/project/chapters")}
         />
         <Tab
           text="Characters"
           active={true}
+          className="print-hidden"
           onClick={() => goTo("/project/characters")}
         />
         <Tab
           text="Map"
           active={false}
           last
+          className="print-hidden"
           onClick={() => goTo("/project/map")}
         />
       </div>

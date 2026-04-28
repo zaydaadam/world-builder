@@ -150,3 +150,16 @@ button {
 .text-editor .ql-picker.ql-header {
   width: 90px;
 }
+@media print{
+  .topbar{
+    display: none;
+  }
+
+  .sidebar{
+    display: none;
+  }
+
+  .print-hidden{
+    display: none;
+  }
+}
