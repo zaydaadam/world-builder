@@ -2,17 +2,22 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import ImageUpload from "@/components/ui/ImageUpload";
 
 export default function ProjectPage() {
   const router = useRouter();
 
+  // holds current project data
   const [project, setProject] = useState(null);
 
+  // form state for editing project
   const [form, setForm] = useState({
     title: "",
     description: "",
+    image_path: "",
   });
 
+  // runs when page loads
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     const savedProject = localStorage.getItem("currentProject");
@@ -33,13 +38,16 @@ export default function ProjectPage() {
     setForm({
       title: parsedProject.title || "",
       description: parsedProject.description || "",
+      image_path: parsedProject.image_path || "",
     });
   }, [router]);
 
+  // used for switching tabs
   function goTo(path) {
     router.push(path);
   }
 
+  // updates form input values
   function handleChange(e) {
     const { name, value } = e.target;
 
@@ -51,21 +59,60 @@ export default function ProjectPage() {
     });
   }
 
-  function saveProject(e) {
+  // saves uploaded image into form
+  function handleImageUpload(image) {
+    setForm(function (prev) {
+      return {
+        ...prev,
+        image_path: image,
+      };
+    });
+  }
+
+  // sends update request to backend
+  async function saveProject(e) {
     e.preventDefault();
 
     if (!project || !form.title.trim()) return;
 
-    const updatedProject = {
-      ...project,
-      title: form.title,
-      description: form.description,
-    };
+    const savedUser = localStorage.getItem("user");
 
-    setProject(updatedProject);
-    localStorage.setItem("currentProject", JSON.stringify(updatedProject));
+    if (!savedUser) {
+      router.push("/login");
+      return;
+    }
 
-    alert("Project updated");
+    const user = JSON.parse(savedUser);
+
+    try {
+      const res = await fetch(`/api/projects/${project.project_id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: user.user_id,
+          title: form.title,
+          description: form.description,
+          image_path: form.image_path || null,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message);
+        return;
+      }
+
+      setProject(data);
+      localStorage.setItem("currentProject", JSON.stringify(data));
+
+      alert("Project updated");
+    } catch (error) {
+      console.log(error);
+      alert("something went wrong");
+    }
   }
 
   if (!project) return <p>Loading...</p>;
@@ -80,6 +127,7 @@ export default function ProjectPage() {
         {project.description}
       </p>
 
+      {/* navigation tabs */}
       <div
         style={{
           display: "flex",
@@ -184,6 +232,26 @@ export default function ProjectPage() {
               onChange={handleChange}
               style={{ width: "300px", height: "100px", padding: "8px" }}
             />
+          </div>
+
+          <div style={{ marginBottom: "12px" }}>
+            <label>Image</label>
+            <br />
+            <ImageUpload onUpload={handleImageUpload} />
+
+            {/* preview image */}
+            {form.image_path && (
+              <img
+                src={form.image_path}
+                alt="Preview"
+                style={{
+                  maxWidth: "300px",
+                  display: "block",
+                  marginTop: "10px",
+                  borderRadius: "8px",
+                }}
+              />
+            )}
           </div>
 
           <button
