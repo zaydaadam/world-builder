@@ -11,7 +11,8 @@ export default function Chapters() {
   const [content, setContent] = useState("");
 
   const [editingId, setEditingId] = useState(null);
-
+ 
+  
   function handleEditClick(chapter) {
     setEditingId(chapter.chapter_id);
     setTitle(chapter.title);
