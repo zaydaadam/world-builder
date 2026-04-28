@@ -20,7 +20,6 @@ export default function LoginForm() {
     e.preventDefault();
 
     try {
-      // send login request to backend
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -34,7 +33,6 @@ export default function LoginForm() {
 
       const data = await res.json();
 
-      // if login fails, show error
       if (!res.ok) {
         alert(data.error || "Login failed");
         return;
@@ -199,6 +197,7 @@ export default function LoginForm() {
               color: "#1f2f46",
             }}
           >
+
             Log In
           </h1>
 

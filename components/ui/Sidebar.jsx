@@ -120,18 +120,22 @@ export default function Sidebar() {
           gap: "10px",
         }}
       >
-        {isProjectPage && (
+        {/* {isProjectPage && (
           <button type="button" style={buttonStyle()}>
             + New Project
           </button>
-        )}
+        )} */}
 
-        <button type="button" style={buttonStyle()}>
+        <button
+          type="button"
+          onClick={() => window.print()}
+          style={buttonStyle()}
+        >
           Export
         </button>
-        <button type="button" style={buttonStyle()}>
+        {/* <button type="button" style={buttonStyle()}>
           Settings
-        </button>
+        </button> */}
 
         <button
           type="button"

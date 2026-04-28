@@ -7,13 +7,11 @@ import { useRouter } from "next/navigation";
 export default function RegisterForm() {
   const router = useRouter();
 
-  // store user input
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // store validation errors and server messages
   const [errors, setErrors] = useState({});
   const [serverMessage, setServerMessage] = useState("");
 
@@ -66,13 +64,11 @@ export default function RegisterForm() {
 
       const data = await res.json();
 
-      // show server error if failed
       if (!res.ok) {
         setServerMessage(data.error || "Sign up failed");
         return;
       }
 
-      // redirect to login after successful signup
       router.push("/login");
     } catch (err) {
       console.log("signup error:", err);

@@ -172,15 +172,16 @@ export default function Chapters() {
           Chapters
         </h2>
 
-        <p style={{ color: "#6b7280" }}>
-          Organize your story chapters and writing
+        <p className="print-hidden" style={{ color: "#6b7280" }}>
+          Keep track of your story characters
         </p>
       </div>
 
       {!showForm && (
         <button
           onClick={() => setShowForm(true)}
-          style={{
+          className="print-hidden"
+        style={{
             padding: "12px 18px",
             backgroundColor: "#2c558a",
             color: "white",
@@ -226,6 +227,7 @@ export default function Chapters() {
 
           <button
             type="submit"
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#2c558a",
@@ -247,6 +249,7 @@ export default function Chapters() {
               setTitle("");
               setContent("");
             }}
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#f3f4f6",
@@ -281,7 +284,11 @@ export default function Chapters() {
               </h3>
 
               <p style={{ color: "#6b7280", marginBottom: "14px" }}>
-                Chapter saved. Click Edit to view or change it.
+                {chapter.content
+                  ?.replace(/<[^>]+>/g, "") // remove HTML tags
+                  .replace(/&nbsp;/g, " ") // fix spaces
+                  .slice(0, 120)}
+                ...
               </p>
               <div style={{ display: "flex", gap: "12px" }}>
                 <button
@@ -298,6 +305,7 @@ export default function Chapters() {
                 </button>
 
                 <button
+                  className="print-hidden"
                   onClick={() => handleDeleteChapter(chapter.chapter_id)}
                   style={{
                     padding: "10px 16px",
@@ -318,3 +326,4 @@ export default function Chapters() {
     </div>
   );
 }
+

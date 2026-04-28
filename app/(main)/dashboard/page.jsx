@@ -172,33 +172,65 @@ export default function DashboardPage() {
 
       {/* create project form */}
       {showForm && (
-        <form onSubmit={handleCreateProject} style={{ marginBottom: "20px" }}>
-          <div>
-            <input
-              placeholder="Project Title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
+        <form
+          onSubmit={handleCreateProject}
+          style={{
+            backgroundColor: "white",
+            padding: "20px",
+            borderRadius: "12px",
+            border: "1px solid #ddd6c8",
+            marginBottom: "24px",
+            maxWidth: "420px",
+          }}
+        >
+          <h2 style={{ fontSize: "22px", marginBottom: "16px" }}>
+            Create Project
+          </h2>
 
-          <div style={{ marginTop: "10px" }}>
-            <textarea
-              placeholder="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
+          <input
+            placeholder="Project Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "10px",
+              border: "1px solid #d1d5db",
+              borderRadius: "8px",
+              marginBottom: "12px",
+            }}
+          />
 
-          {/* image upload component */}
-          <div style={{ marginTop: "10px" }}>
+          <textarea
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            style={{
+              width: "100%",
+              minHeight: "90px",
+              padding: "10px",
+              border: "1px solid #d1d5db",
+              borderRadius: "8px",
+              marginBottom: "12px",
+            }}
+          />
+
+          <div style={{ marginBottom: "16px" }}>
             <ImageUpload onUpload={setImagePath} />
           </div>
 
-          <button type="submit" style={{ marginTop: "10px" }}>
+          <button
+            type="submit"
+            style={{
+              backgroundColor: "#1f2a44",
+              color: "white",
+              padding: "10px 16px",
+              borderRadius: "8px",
+              marginRight: "10px",
+            }}
+          >
             Save
           </button>
 
-          {/* cancel form */}
           <button
             type="button"
             onClick={() => {
@@ -207,7 +239,12 @@ export default function DashboardPage() {
               setDescription("");
               setImagePath("");
             }}
-            style={{ marginLeft: "10px" }}
+            style={{
+              backgroundColor: "#f3f4f6",
+              color: "#1f2937",
+              padding: "10px 16px",
+              borderRadius: "8px",
+            }}
           >
             Cancel
           </button>
@@ -245,14 +282,29 @@ export default function DashboardPage() {
                 />
               )}
 
-              <button type="button" onClick={() => handleOpenProject(project)}>
+              <button
+                type="button"
+                onClick={() => handleOpenProject(project)}
+                style={{
+                  backgroundColor: "#1f2a44",
+                  color: "white",
+                  padding: "6px 12px",
+                  borderRadius: "6px",
+                  marginRight: "8px",
+                }}
+              >
                 Open
               </button>
 
               <button
                 type="button"
                 onClick={() => handleDeleteProject(project.project_id)}
-                style={{ marginLeft: "10px" }}
+                style={{
+                  backgroundColor: "#f8d7da",
+                  color: "#b91c1c",
+                  padding: "6px 12px",
+                  borderRadius: "6px",
+                }}
               >
                 Delete
               </button>

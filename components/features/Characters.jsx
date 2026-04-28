@@ -175,7 +175,7 @@ export default function Characters() {
           Characters
         </h2>
 
-        <p style={{ color: "#6b7280" }}>Keep track of your story characters</p>
+        <p className="print-hidden" style={{ color: "#6b7280" }}>Keep track of your story characters</p>
       </div>
 
       {!showForm && (
@@ -184,7 +184,8 @@ export default function Characters() {
             resetForm();
             setShowForm(true);
           }}
-          style={{
+          className="print-hidden"
+        style={{
             padding: "12px 18px",
             backgroundColor: "#2c558a",
             color: "white",
@@ -275,6 +276,7 @@ export default function Characters() {
 
           <button
             type="submit"
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#2c558a",
@@ -290,6 +292,7 @@ export default function Characters() {
           <button
             type="button"
             onClick={resetForm}
+            className="print-hidden"
             style={{
               padding: "10px 16px",
               backgroundColor: "#f3f4f6",
@@ -348,6 +351,7 @@ export default function Characters() {
 
               <div style={{ display: "flex", gap: "12px" }}>
                 <button
+            className="print-hidden"
                   onClick={() => handleEditCharacter(character)}
                   style={{
                     padding: "10px 16px",
@@ -362,7 +366,8 @@ export default function Characters() {
 
                 <button
                   onClick={() => handleDeleteCharacter(character.character_id)}
-                  style={{
+                  className="print-hidden"
+            style={{
                     padding: "10px 16px",
                     backgroundColor: "#fde8e8",
                     color: "#b91c1c",

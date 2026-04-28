@@ -6,7 +6,7 @@ import Characters from "@/components/features/Characters";
 
 export default function CharactersPage() {
   const router = useRouter();
-  
+
   const [project, setProject] = useState(null);
 
   useEffect(() => {
@@ -64,22 +64,26 @@ export default function CharactersPage() {
         <Tab
           text="Current Project"
           active={false}
+          className="print-hidden"
           onClick={() => goTo("/project")}
         />
         <Tab
           text="Chapters"
           active={false}
+          className="print-hidden"
           onClick={() => goTo("/project/chapters")}
         />
         <Tab
           text="Characters"
           active={true}
+          className="print-hidden"
           onClick={() => goTo("/project/characters")}
         />
         <Tab
           text="Map"
           active={false}
           last
+          className="print-hidden"
           onClick={() => goTo("/project/map")}
         />
       </div>
@@ -89,9 +93,10 @@ export default function CharactersPage() {
   );
 }
 
-function Tab({ text, active, onClick, last }) {
+function Tab({ text, active, onClick, last, className }) {
   return (
     <button
+      className={className}
       onClick={onClick}
       style={{
         padding: "14px 28px",
