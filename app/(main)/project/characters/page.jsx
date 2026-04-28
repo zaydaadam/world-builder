@@ -6,7 +6,7 @@ import Characters from "@/components/features/Characters";
 
 export default function CharactersPage() {
   const router = useRouter();
-
+  
   const [project, setProject] = useState(null);
 
   useEffect(() => {
@@ -34,13 +34,21 @@ export default function CharactersPage() {
 
   return (
     <div>
-      <h1 style={{ fontSize: "42px", marginBottom: "10px", fontWeight: "700" }}>
-        {project.title}
-      </h1>
+      <div style={{ marginBottom: "20px" }}>
+        <h1
+          style={{
+            fontSize: "42px",
+            marginBottom: "8px",
+            fontWeight: "700",
+          }}
+        >
+          {project.title}
+        </h1>
 
-      <p style={{ fontSize: "18px", marginBottom: "20px", color: "#4b5563" }}>
-        {project.description}
-      </p>
+        <p style={{ color: "#6b7280", fontSize: "18px" }}>
+          {project.description}
+        </p>
+      </div>
 
       <div
         style={{
@@ -53,67 +61,49 @@ export default function CharactersPage() {
           width: "fit-content",
         }}
       >
-        <button
+        <Tab
+          text="Current Project"
+          active={false}
           onClick={() => goTo("/project")}
-          style={{
-            padding: "14px 28px",
-            backgroundColor: "transparent",
-            color: "#1f2937",
-            borderRight: "1px solid #ddd6c8",
-            fontWeight: "600",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          Current Project
-        </button>
-
-        <button
+        />
+        <Tab
+          text="Chapters"
+          active={false}
           onClick={() => goTo("/project/chapters")}
-          style={{
-            padding: "14px 28px",
-            backgroundColor: "transparent",
-            color: "#1f2937",
-            borderRight: "1px solid #ddd6c8",
-            fontWeight: "600",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          Chapters
-        </button>
-
-        <button
+        />
+        <Tab
+          text="Characters"
+          active={true}
           onClick={() => goTo("/project/characters")}
-          style={{
-            padding: "14px 28px",
-            backgroundColor: "#ffffff",
-            color: "#1f2937",
-            borderRight: "1px solid #ddd6c8",
-            fontWeight: "600",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          Characters
-        </button>
-
-        <button
+        />
+        <Tab
+          text="Map"
+          active={false}
+          last
           onClick={() => goTo("/project/map")}
-          style={{
-            padding: "14px 28px",
-            backgroundColor: "transparent",
-            color: "#1f2937",
-            fontWeight: "600",
-            border: "none",
-            cursor: "pointer",
-          }}
-        >
-          Map
-        </button>
+        />
       </div>
 
       <Characters />
     </div>
+  );
+}
+
+function Tab({ text, active, onClick, last }) {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        padding: "14px 28px",
+        backgroundColor: active ? "#ffffff" : "transparent",
+        color: "#1f2937",
+        border: "none",
+        borderRight: last ? "none" : "1px solid #ddd6c8",
+        fontWeight: "600",
+        cursor: "pointer",
+      }}
+    >
+      {text}
+    </button>
   );
 }
