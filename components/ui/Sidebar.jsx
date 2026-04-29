@@ -1,12 +1,94 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { logout } from "@/lib/auth/logout";
 
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+
+  const [project, setProject] = useState(null);
+
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    const savedProject = localStorage.getItem("currentProject");
+
+    if (!savedUser) {
+      router.push("/login");
+      return;
+    }
+
+    if (!savedProject) {
+      router.push("/dashboard");
+      return;
+    }
+
+    setProject(JSON.parse(savedProject));
+  }, [router]);
+
+  const printPDF = async () =>{
+    let location = "";
+    let data;
+    if(!project){
+    console.log("empty")
+    }
+    if (pathname.endsWith("chapters")){
+      location = "chapter"
+      const res = await fetch(
+        `/api/chapters?projectId=${project.project_id}`,
+      );
+      data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message);
+        return;
+      }
+    } else if (pathname.endsWith("characters")){
+      location = "character"
+      const res = await fetch(
+        `/api/characters?projectId=${project.project_id}`,
+      );
+      data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message);
+        return;
+      }
+    } else if (pathname.endsWith("map")){
+      location = "map"
+      const res = await fetch(
+        `/api/map?projectId=${project.project_id}`,
+      );
+      data = await res.json();
+
+      if (!res.ok) {
+        alert(data.message);
+        return;
+      }
+    }
+
+    const response = await fetch('/api/printPDF', {
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({pTitle: project.title, pDesc: project.description, pID: project.project_id, location: location, data: data}),
+    });
+
+    if (response.ok){
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "document.pdf";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    }
+  };
 
   const isProjectPage = pathname.startsWith("/project");
 
@@ -128,7 +210,7 @@ export default function Sidebar() {
 
         <button
           type="button"
-          onClick={() => window.print()}
+          onClick={printPDF}
           style={buttonStyle()}
         >
           Export
