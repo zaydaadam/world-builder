@@ -1,6 +1,6 @@
 # World Builder
 
-World Builder is a web app for writing and organizing story ideas. It allows users to manage chapters, characters, and maps all in one place.
+World Builder is a web app for writing and organizing story ideas. It allows users to manage chapters, characters, map and print all in one place.
 
 This was a team project built for a software engineering course. We worked together to design and build the full application, with different parts of the system handled across the team.
 
