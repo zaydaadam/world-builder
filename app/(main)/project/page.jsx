@@ -101,17 +101,17 @@ export default function ProjectPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
       setProject(data);
       localStorage.setItem("currentProject", JSON.stringify(data));
 
-      alert("Project updated");
+      // alert("Project updated");
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 

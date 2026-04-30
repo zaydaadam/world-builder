@@ -38,14 +38,14 @@ export default function Chapters() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
       setChapters(data);
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 
@@ -77,7 +77,7 @@ export default function Chapters() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -90,7 +90,7 @@ export default function Chapters() {
       setShowForm(false);
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
   // update chapter
@@ -112,7 +112,7 @@ export default function Chapters() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -148,7 +148,7 @@ export default function Chapters() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -159,7 +159,7 @@ export default function Chapters() {
       });
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 

@@ -40,7 +40,7 @@ export default function Sidebar() {
       data = await res.json();
       data = data ? [data] : [];
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
     } else if (pathname.endsWith("characters")) {
@@ -51,7 +51,7 @@ export default function Sidebar() {
       data = await res.json();
       data = data ? [data] : [];
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
     } else if (pathname.endsWith("map")) {
@@ -60,7 +60,7 @@ export default function Sidebar() {
       data = await res.json();
       data = data ? [data] : [];
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
     }

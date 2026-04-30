@@ -34,7 +34,7 @@ export default function LoginForm() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.error || "Login failed");
+        // alert(data.error || "Login failed");
         return;
       }
 
@@ -44,7 +44,7 @@ export default function LoginForm() {
       router.push("/dashboard");
     } catch (err) {
       console.log("login error:", err);
-      alert("Something went wrong");
+      // alert("Something went wrong");
     }
   }
 
