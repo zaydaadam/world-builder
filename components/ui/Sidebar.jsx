@@ -28,59 +28,61 @@ export default function Sidebar() {
     setProject(JSON.parse(savedProject));
   }, [router]);
 
-  const printPDF = async () =>{
+  const printPDF = async () => {
     let location = "";
     let data;
-    if(!project){
-    console.log("empty")
+    if (!project) {
+      console.log("empty");
     }
-    if (pathname.endsWith("chapters")){
-      location = "chapter"
-      const res = await fetch(
-        `/api/chapters?projectId=${project.project_id}`,
-      );
+    if (pathname.endsWith("chapters")) {
+      location = "chapter";
+      const res = await fetch(`/api/chapters?projectId=${project.project_id}`);
       data = await res.json();
-
+      data = data ? [data] : [];
       if (!res.ok) {
         alert(data.message);
         return;
       }
-    } else if (pathname.endsWith("characters")){
-      location = "character"
+    } else if (pathname.endsWith("characters")) {
+      location = "character";
       const res = await fetch(
         `/api/characters?projectId=${project.project_id}`,
       );
       data = await res.json();
-
+      data = data ? [data] : [];
       if (!res.ok) {
         alert(data.message);
         return;
       }
-    } else if (pathname.endsWith("map")){
-      location = "map"
-      const res = await fetch(
-        `/api/map?projectId=${project.project_id}`,
-      );
+    } else if (pathname.endsWith("map")) {
+      location = "map";
+      const res = await fetch(`/api/maps?projectId=${project.project_id}`);
       data = await res.json();
-
+      data = data ? [data] : [];
       if (!res.ok) {
         alert(data.message);
         return;
       }
     }
 
-    const response = await fetch('/api/printPDF', {
-      method: 'POST',
-      headers:{
-        'Content-Type': 'application/json',
+    const response = await fetch("/api/printPDF", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({pTitle: project.title, pDesc: project.description, pID: project.project_id, location: location, data: data}),
+      body: JSON.stringify({
+        pTitle: project.title,
+        pDesc: project.description,
+        pID: project.project_id,
+        location: location,
+        data: data,
+      }),
     });
 
-    if (response.ok){
+    if (response.ok) {
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
       a.download = "document.pdf";
       document.body.appendChild(a);
@@ -208,11 +210,7 @@ export default function Sidebar() {
           </button>
         )} */}
 
-        <button
-          type="button"
-          onClick={printPDF}
-          style={buttonStyle()}
-        >
+        <button type="button" onClick={printPDF} style={buttonStyle()}>
           Export
         </button>
         {/* <button type="button" style={buttonStyle()}>
