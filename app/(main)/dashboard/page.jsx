@@ -48,7 +48,7 @@ export default function DashboardPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -56,7 +56,7 @@ export default function DashboardPage() {
       setProjects(data);
     } catch (error) {
       console.log("Get projects error:", error);
-      alert("Something went wrong");
+      // alert("Something went wrong");
     }
   }
 
@@ -87,7 +87,7 @@ export default function DashboardPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -103,7 +103,7 @@ export default function DashboardPage() {
       setShowForm(false);
     } catch (error) {
       console.log("Create project error:", error);
-      alert("Something went wrong");
+      // alert("Something went wrong");
     }
   }
 
@@ -134,7 +134,7 @@ export default function DashboardPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 

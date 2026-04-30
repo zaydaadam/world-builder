@@ -31,14 +31,14 @@ export default function Characters() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
       setCharacters(data);
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 
@@ -105,7 +105,7 @@ export default function Characters() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -134,7 +134,7 @@ export default function Characters() {
       resetForm();
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 
@@ -151,7 +151,7 @@ export default function Characters() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -162,7 +162,7 @@ export default function Characters() {
       });
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 

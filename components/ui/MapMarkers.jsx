@@ -24,14 +24,14 @@ export default function MapMarkers({ mapImage, mapId }) {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
       setMarkers(data);
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 
@@ -85,7 +85,7 @@ export default function MapMarkers({ mapImage, mapId }) {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -94,7 +94,7 @@ export default function MapMarkers({ mapImage, mapId }) {
       setPending(null);
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 
@@ -130,7 +130,7 @@ export default function MapMarkers({ mapImage, mapId }) {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -141,7 +141,7 @@ export default function MapMarkers({ mapImage, mapId }) {
       setSelected(null);
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 

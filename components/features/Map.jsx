@@ -26,7 +26,7 @@ export default function Map() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -37,7 +37,7 @@ export default function Map() {
       }
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 
@@ -58,7 +58,7 @@ export default function Map() {
     const data = await res.json();
 
     if (!res.ok) {
-      alert(data.message);
+      // alert(data.message);
       return;
     }
 
@@ -92,7 +92,7 @@ export default function Map() {
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message);
+        // alert(data.message);
         return;
       }
 
@@ -111,7 +111,7 @@ export default function Map() {
       }
     } catch (error) {
       console.log(error);
-      alert("something went wrong");
+      // alert("something went wrong");
     }
   }
 
