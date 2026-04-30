@@ -124,7 +124,7 @@ export default function ProjectPage() {
       </h1>
 
       <p style={{ fontSize: "18px", marginBottom: "20px", color: "#4b5563" }}>
-        {project.description}
+        {project.description?.slice(0, 200)}...
       </p>
 
       {/* navigation tabs */}

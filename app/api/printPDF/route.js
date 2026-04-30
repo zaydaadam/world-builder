@@ -12,7 +12,7 @@ export async function POST(res) {
     const { pTitle, pDesc, pID, location, data } = body;
     const finalData = Array.isArray(data[0]) ? data[0] : data;
     console.log(location);
-    console.log(data);
+    // console.log(data);
     let formattedContent;
 
     if (location == "chapter") {
