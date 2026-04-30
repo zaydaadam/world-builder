@@ -11,8 +11,7 @@ export default function Chapters() {
   const [content, setContent] = useState("");
 
   const [editingId, setEditingId] = useState(null);
- 
-  
+
   function handleEditClick(chapter) {
     setEditingId(chapter.chapter_id);
     setTitle(chapter.title);
@@ -181,7 +180,7 @@ export default function Chapters() {
         <button
           onClick={() => setShowForm(true)}
           className="print-hidden"
-        style={{
+          style={{
             padding: "12px 18px",
             backgroundColor: "#2c558a",
             color: "white",
@@ -280,7 +279,7 @@ export default function Chapters() {
               }}
             >
               <h3 style={{ fontSize: "26px", marginBottom: "8px" }}>
-                Chapter {chapter.chapter_number}: {chapter.title}
+                {chapter.title}
               </h3>
 
               <p style={{ color: "#6b7280", marginBottom: "14px" }}>
@@ -326,4 +325,3 @@ export default function Chapters() {
     </div>
   );
 }
-
